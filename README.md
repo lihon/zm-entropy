@@ -1,6 +1,6 @@
 # ZM熵增
 
-轻量简约的静态博客，纯 HTML + CSS + 少量 JS 渲染 Markdown。
+赛博朋克风格轻量静态博客，纯 HTML + CSS + 少量 JS 渲染 Markdown。
 
 ## 本地预览
 
@@ -43,7 +43,8 @@ git push -u origin main
 
 ## 技术栈
 
-- HTML + CSS（暗色模式自适应）
+- HTML + CSS（赛博朋克主题，暗色模式）
 - [marked.js](https://github.com/markedjs/marked)（Markdown 渲染，CDN 引入）
 - Markdown frontmatter（文章元数据）
+- Emoji 短码支持（`:smile:` → 😄）
 - 零构建工具、零框架
