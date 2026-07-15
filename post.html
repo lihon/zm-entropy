@@ -19,6 +19,62 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
   <script>
+  // ── emoji 短码映射 ──────────────────────────────────
+  const EMOJI = {
+    // 表情
+    'smile':'😄','smiley':'😃','grin':'😁','grinning':'😀','laughing':'😆','satisfied':'😆',
+    'joy':'😂','rofl':'🤣','wink':'😉','blush':'😊','innocent':'😇','heart_eyes':'😍',
+    'kissing_heart':'😘','yum':'😋','stuck_out_tongue':'😛','stuck_out_tongue_wink':'😜',
+    'stuck_out_tongue_closed_eyes':'😝','relaxed':'☺️','slight_smile':'🙂','hugging':'🤗',
+    'thinking':'🤔','neutral_face':'😐','expressionless':'😑','unamused':'😒','rolling_eyes':'🙄',
+    'smirk':'😏','relieved':'😌','pensive':'😔','worried':'😟','confused':'😕',
+    'disappointed':'😞','cry':'😢','sob':'😭','angry':'😠','rage':'😡',
+    'triumph':'😤','tired_face':'😫','fearful':'😨','scream':'😱','cold_sweat':'😰',
+    'astonished':'😲','sleeping':'😴','zipper_mouth':'🤐','nerd':'🤓','sunglasses':'😎',
+    'partying_face':'🥳','pleading_face':'🥺','facepalm':'🤦','shrug':'🤷',
+    // 手势
+    '+1':'👍','thumbsup':'👍','-1':'👎','thumbsdown':'👎','clap':'👏','raised_hands':'🙌',
+    'pray':'🙏','handshake':'🤝','ok_hand':'👌','point_up':'☝️','point_down':'👇',
+    'point_right':'👉','point_left':'👈','wave':'👋','muscle':'💪','v':'✌️',
+    'metal':'🤘','call_me':'🤙','fingers_crossed':'🤞','heart_hands':'🫶','pinched_fingers':'🤌',
+    // 爱心
+    'heart':'❤️','blue_heart':'💙','purple_heart':'💜','green_heart':'💚','yellow_heart':'💛',
+    'orange_heart':'🧡','black_heart':'🖤','white_heart':'🤍','broken_heart':'💔',
+    'sparkling_heart':'💖','two_hearts':'💕','gift_heart':'💝',
+    // 符号
+    'star':'⭐','star2':'🌟','sparkles':'✨','zap':'⚡','fire':'🔥','boom':'💥',
+    '100':'💯','bulb':'💡','rocket':'🚀','tada':'🎉','white_check_mark':'✅','x':'❌',
+    'warning':'⚠️','question':'❓','exclamation':'❗','recycle':'♻️','eyes':'👀',
+    'speech_balloon':'💬','thought_balloon':'💭','hourglass':'⌛','pin':'📌','paperclip':'📎',
+    'lock':'🔒','unlock':'🔓','key':'🔑','mag':'🔍','link':'🔗','scissors':'✂️',
+    // 饮食
+    'coffee':'☕','tea':'🍵','beer':'🍺','wine_glass':'🍷','cocktail':'🍸','bubble_tea':'🧋',
+    'pizza':'🍕','hamburger':'🍔','cake':'🎂','apple':'🍎','watermelon':'🍉','banana':'🍌',
+    'taco':'🌮','sushi':'🍣','bento':'🍱','rice':'🍚','ramen':'🍜','icecream':'🍦',
+    'popcorn':'🍿','cookie':'🍪',
+    // 天气
+    'sunny':'☀️','cloud':'☁️','umbrella':'☔','snowflake':'❄️','rainbow':'🌈','ocean':'🌊',
+    'moon':'🌙','crescent_moon':'🌙',
+    // 物件
+    'books':'📚','book':'📖','memo':'📝','pencil':'📝','computer':'💻','keyboard':'⌨️',
+    'package':'📦','wrench':'🔧','camera':'📷','headphones':'🎧','alarm_clock':'⏰',
+    'calendar':'📅','check':'✔️','email':'📧','phone':'📱',
+  };
+
+  // ── marked emoji 扩展 ───────────────────────────────
+  const emojiExt = {
+    name: 'emoji',
+    level: 'inline',
+    start(src) { return src.indexOf(':'); },
+    tokenizer(src) {
+      const m = src.match(/^:(\w+):/);
+      if (m && EMOJI[m[1]]) return { type: 'emoji', raw: m[0], text: EMOJI[m[1]] };
+    },
+    renderer(token) { return token.text; },
+  };
+  marked.use({ extensions: [emojiExt] });
+
+  // ── 文章加载 ────────────────────────────────────────
   (async () => {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('p');
