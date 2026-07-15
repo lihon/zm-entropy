@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh-keygen -t ed25519 -C \"blog@zm\" -f ~/.ssh/id_ed25519 -N \"\")",
+      "Read(//c/Users/31753/.ssh/**)",
+      "Bash(ssh *)",
+      "WebFetch(domain:lihon.github.io)"
+    ]
+  }
+}
