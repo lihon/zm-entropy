@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">ZM熵增</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← 返回文章列表</a>
+
+  <article id="post-content">
+    <p style="color: var(--text-light);">加载中…</p>
+  </article>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 ZM熵增 · Powered by simplicity</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+  (async () => {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('p');
+    if (!slug) {
+      document.getElementById('post-content').innerHTML = '<p>未找到文章。</p>';
+      return;
+    }
+
+    try {
+      const res = await fetch(`posts/${slug}.md`);
+      if (!res.ok) throw new Error('文章不存在');
+      const raw = await res.text();
+
+      // 解析 frontmatter
+      const match = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+      let meta = {}, body = raw;
+      if (match) {
+        match[1].split('\n').forEach(line => {
+          const kv = line.match(/^(\w+):\s*(.*)$/);
+          if (kv) meta[kv[1]] = kv[2].trim();
+        });
+        body = match[2];
+      }
+
+      // 更新标题
+      if (meta.title) {
+        document.title = `${meta.title} — ZM熵增`;
+      }
+
+      // 渲染
+      const html = marked.parse(body);
+      const article = document.getElementById('post-content');
+      article.innerHTML = `
+        <header>
+          <div class="post-date">${meta.date || ''}</div>
+          <h1>${meta.title || slug}</h1>
+          <div class="tags">${(meta.tags || '').split(',').filter(Boolean).map(t => `<span class="tag">${t.trim()}</span>`).join('')}</div>
+        </header>
+        ${html}
+      `;
+    } catch (e) {
+      document.getElementById('post-content').innerHTML = `<p>加载失败：${e.message}</p>`;
+    }
+  })();
+  </script>
+</body>
+</html>

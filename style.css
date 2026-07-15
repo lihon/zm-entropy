@@ -1,0 +1,249 @@
+/* ========================================
+   Minimal Blog — 简约轻量
+   ======================================== */
+
+:root {
+  --bg: #fdfdfc;
+  --text: #1a1a1a;
+  --text-light: #6b6b6b;
+  --text-lighter: #a0a0a0;
+  --border: #eaeaea;
+  --accent: #333;
+  --accent-bg: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171717;
+    --text: #e0e0e0;
+    --text-light: #999;
+    --text-lighter: #666;
+    --border: #2a2a2a;
+    --accent: #ccc;
+    --accent-bg: #1f1f1f;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+/* ---- Header ---- */
+.site-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.site-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.site-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 0.35rem;
+}
+
+.site-nav {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.site-nav a:hover { color: var(--text); }
+
+/* ---- Post List ---- */
+.post-list { list-style: none; }
+
+.post-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: var(--text-lighter);
+  margin-bottom: 0.15rem;
+}
+
+.post-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.post-title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.post-title a:hover { color: var(--text-light); }
+
+.post-excerpt {
+  font-size: 0.92rem;
+  color: var(--text-light);
+  margin-top: 0.3rem;
+  line-height: 1.65;
+}
+
+/* ---- Article ---- */
+article { margin-top: 0.5rem; }
+
+article h1 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+article h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.6rem;
+}
+
+article h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+
+article p { margin-bottom: 1.2rem; }
+
+article a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+article img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+}
+
+article blockquote {
+  border-left: 2px solid var(--text-lighter);
+  padding: 0.4rem 1rem;
+  margin: 1.5rem 0;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+article pre {
+  background: var(--accent-bg);
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.2rem 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  border: 1px solid var(--border);
+}
+
+article code {
+  font-family: "SF Mono", "Fira Code", Consolas, "Liberation Mono", monospace;
+  font-size: 0.85em;
+  background: var(--accent-bg);
+  padding: 0.12em 0.4em;
+  border-radius: 3px;
+}
+
+article pre code {
+  background: none;
+  padding: 0;
+}
+
+article ul, article ol {
+  margin: 0.6rem 0 1.2rem 1.6rem;
+}
+
+article li { margin-bottom: 0.3rem; }
+
+article hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* ---- Tags ---- */
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  background: var(--accent-bg);
+  padding: 0.1em 0.6em;
+  border-radius: 3px;
+}
+
+/* ---- Back ---- */
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.back-link:hover { color: var(--text); }
+
+/* ---- About ---- */
+.about-section { margin-top: 1rem; }
+
+.about-section p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  margin-top: 4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-lighter);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 500px) {
+  body { padding: 2rem 1rem 3rem; }
+  article h1 { font-size: 1.35rem; }
+}
